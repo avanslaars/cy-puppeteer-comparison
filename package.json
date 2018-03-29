@@ -9,7 +9,8 @@
     "serve": "node .",
     "dev": "concurrently \"npm run watch\" \"npm run serve\"",
     "cypress": "cypress open",
-    "cypress:all": "cypress run"
+    "cypress:all": "cypress run",
+    "pup": "jest ./__integration_tests__"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "concurrently": "^3.5.0",
     "es6-promise": "^4.2.4",
     "json-server": "^0.12.0",
+    "ramda": "^0.25.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
@@ -33,7 +35,13 @@
     "css-loader": "^0.28.7",
     "cypress": "^2.1.0",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.4.3",
+    "jest-puppeteer-preset": "^2.2.1",
+    "puppeteer": "^1.2.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.6.0"
+  },
+  "jest": {
+    "preset": "jest-puppeteer-preset"
   }
 }
