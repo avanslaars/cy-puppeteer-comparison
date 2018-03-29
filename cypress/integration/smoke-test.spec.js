@@ -1,3 +1,9 @@
+const visitOptions = {
+  onBeforeLoad: win => {
+    win.fetch = null
+  }
+}
+
 describe('Smoke Tests', () => {
   beforeEach(() => {
     cy.request('DELETE', '/api/todos/all')
@@ -8,7 +14,7 @@ describe('Smoke Tests', () => {
       cy.server()
       cy.route('POST', '/api/todos').as('save')
 
-      cy.visit('/')
+      cy.visit('/', visitOptions)
 
       cy
         .get('.new-todo')
@@ -30,7 +36,7 @@ describe('Smoke Tests', () => {
       cy.server()
       cy.route('GET', '/api/todos').as('load')
 
-      cy.visit('/')
+      cy.visit('/', visitOptions)
 
       cy.wait('@load')
     })
