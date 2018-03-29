@@ -23,7 +23,7 @@ export default class TodoApp extends Component {
 
   componentDidMount() {
     loadTodos()
-      .then(({ data }) => this.setState({ todos: data }))
+      .then(data => this.setState({ todos: data }))
       .catch(() => this.setState({ error: true }))
   }
 
@@ -48,7 +48,7 @@ export default class TodoApp extends Component {
       isComplete: !targetTodo.isComplete
     }
     updateTodo(updated)
-      .then(({ data }) => {
+      .then(data => {
         const todos = this.state.todos.map(t => (t.id === data.id ? data : t))
         this.setState({ todos: todos })
       })
@@ -59,7 +59,7 @@ export default class TodoApp extends Component {
     evt.preventDefault()
     const newTodo = { name: this.state.currentTodo, isComplete: false }
     saveTodo(newTodo)
-      .then(({ data }) =>
+      .then(data =>
         this.setState({
           todos: this.state.todos.concat(data),
           currentTodo: ''

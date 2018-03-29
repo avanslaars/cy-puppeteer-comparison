@@ -16,15 +16,11 @@ export const saveTodo = todo =>
   })
     .then(throwForError)
     .then(res => res.json())
-    .then(data => ({ data }))
 
 export const loadTodos = () =>
   fetch('http://localhost:3030/api/todos')
     .then(throwForError)
     .then(res => res.json())
-    .then(data => ({
-      data
-    }))
 
 export const destroyTodo = id =>
   fetch(`http://localhost:3030/api/todos/${id}`, {
@@ -36,7 +32,6 @@ export const destroyTodo = id =>
   })
     .then(throwForError)
     .then(res => res.json())
-    .then(data => ({ data }))
 
 export const updateTodo = todo =>
   fetch(`http://localhost:3030/api/todos/${todo.id}`, {
@@ -49,4 +44,3 @@ export const updateTodo = todo =>
   })
     .then(throwForError)
     .then(res => res.json())
-    .then(data => ({ data }))
