@@ -58,6 +58,7 @@ export default class TodoApp extends Component {
   handleTodoSubmit(evt) {
     evt.preventDefault()
     const newTodo = { name: this.state.currentTodo, isComplete: false }
+    // setTimeout(() => {
     saveTodo(newTodo)
       .then(data =>
         this.setState({
@@ -66,6 +67,7 @@ export default class TodoApp extends Component {
         })
       )
       .catch(() => this.setState({ error: true }))
+    // }, 1000)
   }
 
   render() {
