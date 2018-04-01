@@ -35,10 +35,10 @@ describe('Form submission', () => {
     const typedText = 'New todo'
     await page.type('.new-todo', typedText, { delay: 100 })
     await page.keyboard.press('Enter')
-    // wait for XHR? - verify this... works but doesn't seem to be required
+    // wait for XHR - this works but doesn't seem to be required
     // page.waitForNavigation({ waitUntil: 'networkidle2' })
     const els = await page.$$('.todo-list li')
-    expect(els.length).toBe(2)
+    await expect(els.length).toBe(2)
   })
 
   it('Shows an error message for a failed form submission', async () => {
@@ -75,7 +75,7 @@ describe('Form submission', () => {
     await page.keyboard.press('Enter')
 
     const els = await page.$$('.todo-list li')
-    expect(els.length).toBe(1) // original seed value, no new todo
+    await expect(els.length).toBe(1) // original seed value, no new todo
 
     // times out and throws if element doesn't appear within default timeout (5s)
     await page.waitForSelector('.error', { visible: true })

@@ -46,6 +46,6 @@ describe('TodoMVC', () => {
     })
     await page.goto('http://localhost:3030')
     const els = await page.$$('.todo-list li')
-    expect(els.length).toBe(4)
+    await expect(els.length).toBe(4)
   })
 })

@@ -1,33 +1,51 @@
-import { route } from './helpers'
-
 describe('Form input', () => {
-  beforeAll(async () => {
-    await route('http://localhost:3030/api/todos', [
-      { id: 1, name: 'One', isComplete: true },
-      { id: 2, name: 'Two', isComplete: false },
-      { id: 3, name: 'Three', isComplete: false },
-      { id: 4, name: 'Four', isComplete: true }
-    ])
-
-    await page.goto('http://localhost:3030')
-  })
-
   it('Focuses the input on load', async () => {
-    // cy.focused().should('have.class', 'new-todo')
+    const page = await browser.newPage()
+    await page.setRequestInterception(true)
+    page.on('request', interceptedRequest => {
+      const url = interceptedRequest.url()
+      if (url === 'http://localhost:3030/api/todos') {
+        interceptedRequest.respond({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify([])
+        })
+      } else {
+        interceptedRequest.continue()
+      }
+    })
+    await page.goto('http://localhost:3030')
+    // get boolean to indicated active element is expected element
     const isExpected = await page.evaluate(() =>
       document.activeElement.classList.contains('new-todo')
     )
-    expect(isExpected).toBe(true)
+    await expect(isExpected).toBe(true)
   })
 
   it('Accepts input', async () => {
+    const page = await browser.newPage()
+    await page.setRequestInterception(true)
+    page.on('request', interceptedRequest => {
+      const url = interceptedRequest.url()
+      if (url === 'http://localhost:3030/api/todos') {
+        interceptedRequest.respond({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify([])
+        })
+      } else {
+        interceptedRequest.continue()
+      }
+    })
+    await page.goto('http://localhost:3030')
     const typedText = 'New todo'
     const selector = '.new-todo'
     await page.type(selector, typedText, { delay: 100 })
+    // get input's value and make sure it is what was typed
     const val = await page.evaluate(
       sel => document.querySelector(sel).value,
       selector
     )
-    expect(val).toBe(typedText)
+    await expect(val).toBe(typedText)
   })
 })
