@@ -32,8 +32,7 @@ describe('Form submission', () => {
 
     await page.goto('http://localhost:3030')
 
-    const typedText = 'New todo'
-    await page.type('.new-todo', typedText, { delay: 100 })
+    await page.type('.new-todo', newTodo, { delay: 100 })
     await page.keyboard.press('Enter')
     // wait for XHR - this works but doesn't seem to be required
     // page.waitForNavigation({ waitUntil: 'networkidle2' })
