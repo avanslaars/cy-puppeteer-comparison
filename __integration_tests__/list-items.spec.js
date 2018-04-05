@@ -33,8 +33,7 @@ describe('List Item Behavior', () => {
     await page.hover(liSelector)
     const button = await page.$(`${liSelector} .destroy`)
     await button.click()
-    const els = await page.$$('.todo-list li')
-    await expect(els.length).toBe(3)
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('.todo-list li')).length === 3)
   })
 
   it('Marks an item complete', async () => {
@@ -70,12 +69,14 @@ describe('List Item Behavior', () => {
     const liSelector = '.todo-list li:nth-child(1)'
     const item = await page.$(liSelector)
     const checkbox = await item.$('.toggle')
-    await checkbox.click()
+    const expectedClass = 'completed'
 
-    const hasClass = await page.evaluate(
-      sel => document.querySelector(sel).classList.contains('completed'),
-      liSelector
+    await checkbox.click()
+    await page.waitForFunction(
+      (sel, targetClass) => document.querySelector(sel).classList.contains(targetClass),
+      {},
+      liSelector,
+      expectedClass
     )
-    await expect(hasClass).toBe(true)
   })
 })

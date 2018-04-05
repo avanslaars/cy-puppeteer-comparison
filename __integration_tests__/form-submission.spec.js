@@ -9,7 +9,6 @@ describe('Form submission', () => {
     page.on('request', interceptedRequest => {
       const url = interceptedRequest.url()
       const method = interceptedRequest.method()
-      // TODO: restructure this to handle these conditionals a nicer way
       if (url === 'http://localhost:3030/api/todos' && method === 'GET') {
         interceptedRequest.respond({
           status: 200,

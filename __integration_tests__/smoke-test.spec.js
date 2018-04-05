@@ -45,7 +45,8 @@ describe('Smoke Tests', () => {
       await page.waitForFunction(checkListLength, {}, listSelector, 3)
     })
 
-    it('Deletes todos with promise syntax', () => {
+    // Naive promise implementation - for those who don't get promise chains
+    it.skip('Deletes todos with promise syntax', () => {
       const listSelector = '.todo-list li'
       const checkListLength = (sel, expected) =>
         Array.from(document.querySelectorAll(sel)).length === expected
@@ -73,6 +74,7 @@ describe('Smoke Tests', () => {
       })
     })
 
+    // Promise implementation - taking advantage of promise chains
     it('Deletes todos with smarter promise syntax', () => {
       const liSelector = '.todo-list li:nth-child(1)'
       const listSelector = '.todo-list li'
